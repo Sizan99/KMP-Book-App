@@ -13,7 +13,6 @@ class BookListViewModel : ViewModel() {
 
         when (action) {
             is BookListAction.OnBookClick -> {
-
             }
 
             is BookListAction.OnSearchQueryChange -> {

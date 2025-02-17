@@ -74,8 +74,14 @@ fun BookListScreen(
     val pagerState = rememberPagerState { 2 }
     val searchResultListState = rememberLazyListState()
     val favouriteListState = rememberLazyListState()
-    LaunchedEffect(state.searchResults){
+    LaunchedEffect(state.searchResults) {
         searchResultListState.animateScrollToItem(0)
+    }
+    LaunchedEffect(state.selectedTabIndex) {
+        pagerState.animateScrollToPage(state.selectedTabIndex)
+    }
+    LaunchedEffect(pagerState.currentPage) {
+        onAction(BookListAction.OnTabSelected(pagerState.currentPage))
     }
     Column(
         modifier = Modifier.fillMaxSize().background(DarkBlue).statusBarsPadding(),
@@ -109,10 +115,10 @@ fun BookListScreen(
                         .fillMaxWidth(),
                     containerColor = DesertWhite,
                     contentColor = SandYellow,
-                    indicator = { tabpositions ->
+                    indicator = { tabPositions ->
                         TabRowDefaults.SecondaryIndicator(
-                            color = SandYellow,
-                            modifier = Modifier.tabIndicatorOffset(tabpositions[state.selectedTabIndex])
+                            modifier = Modifier.tabIndicatorOffset(tabPositions[state.selectedTabIndex]),
+                            color = SandYellow
                         )
                     }
                 ) {
@@ -168,6 +174,7 @@ fun BookListScreen(
                                                 color = MaterialTheme.colorScheme.error
                                             )
                                         }
+
                                         state.searchResults.isEmpty() -> {
                                             Text(
                                                 text = stringResource(Res.string.no_results),
@@ -176,7 +183,8 @@ fun BookListScreen(
                                                 color = MaterialTheme.colorScheme.error
                                             )
                                         }
-                                        else ->{
+
+                                        else -> {
                                             BookList(
                                                 books = state.searchResults,
                                                 onBookClick = {
@@ -191,15 +199,13 @@ fun BookListScreen(
                             }
 
                             1 -> {
-                                if(state.favouriteBooks.isEmpty()) {
+                                if (state.favouriteBooks.isEmpty()) {
                                     Text(
                                         text = stringResource(Res.string.no_favourites),
                                         textAlign = TextAlign.Center,
                                         style = MaterialTheme.typography.headlineSmall,
-                                        color = MaterialTheme.colorScheme.error
                                     )
-                                }
-                                else{
+                                } else {
                                     BookList(
                                         books = state.favouriteBooks,
                                         onBookClick = {
