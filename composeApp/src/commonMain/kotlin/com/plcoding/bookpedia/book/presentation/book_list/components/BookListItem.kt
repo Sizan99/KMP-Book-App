@@ -12,8 +12,14 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -33,7 +39,9 @@ import cmp_bookpedia.composeapp.generated.resources.book_error_2
 import coil3.compose.rememberAsyncImagePainter
 import com.plcoding.bookpedia.book.domain.Book
 import com.plcoding.bookpedia.core.presentation.LightBlue
+import com.plcoding.bookpedia.core.presentation.SandYellow
 import org.jetbrains.compose.resources.painterResource
+import kotlin.math.round
 
 @Composable
 fun BookListItem(
@@ -49,7 +57,9 @@ fun BookListItem(
         color = LightBlue.copy(alpha = 0.2F)
     ) {
         Row(
-            modifier = Modifier.padding(16.dp).fillMaxWidth().height((IntrinsicSize.Min))
+            modifier = Modifier.padding(16.dp).fillMaxWidth().height((IntrinsicSize.Min)),
+                verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Box(
                 modifier = Modifier.height(100.dp),
@@ -105,13 +115,40 @@ fun BookListItem(
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
-                //author
-                Row() {
-                    //rating
-                    //icon
+                book.authors.firstOrNull()?.let { authorName ->
+                    Text(
+                        text = authorName,
+                        style = MaterialTheme.typography.bodyLarge,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
                 }
+                book.averageRating?.let { rating ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "${round(rating * 10) / 10.0}",
+                            style = MaterialTheme.typography.bodyMedium,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                        Icon(
+                            imageVector = Icons.Default.Star,
+                            contentDescription = null,
+                            tint = SandYellow
+                        )
+                    }
+
+                }
+
             }
-            //arrow
+            Icon(
+                imageVector = Icons.AutoMirrored.Default.KeyboardArrowRight,
+                contentDescription = null,
+                modifier = Modifier.size(30.dp)
+            )
         }
     }
 
