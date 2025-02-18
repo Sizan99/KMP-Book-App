@@ -15,7 +15,6 @@ fun App() {
     Scaffold(
         modifier = Modifier.fillMaxSize()
     ) { innerpadding ->
-
         BookListScreenRoot(
             viewModel = remember { BookListViewModel() },
             onBookClick = {}

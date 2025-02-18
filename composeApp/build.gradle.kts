@@ -114,6 +114,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.credentials)
     debugImplementation(compose.uiTooling)
 }
 
