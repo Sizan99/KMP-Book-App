@@ -5,5 +5,13 @@
     <string name="search_results">Search Results</string>
     <string name="favourites">Favourites</string>
     <string name="no_results">No Results Found</string>
-    <string name="no_favourites">You haven't added any favourites </string>
+    <string name="no_favourites">You haven't added any favourites</string>
+    <string name="error_REQUEST_TIMEOUT">Request Timeout </string>
+    <string name="error_TOO_MANY_REQUESTS">Too Many Requests </string>
+    <string name="error_NO_INTERNET_CONNECTION">No Internet Connection</string>
+    <string name="error_SERVER_ERROR">Server Error</string>
+    <string name="error_SERIALIZATION_ERROR">Serialization Error</string>
+    <string name="error_UNKNOWN_ERROR"> An Unknown Error Occurred</string>
+    <string name="error_DISK_FULL">Disk Full</string>
+    <string name="error_UNKNOWN_LOCAL_ERROR"> An Unknown Local Error Occurred</string>
 </resources>
